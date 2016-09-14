@@ -2,6 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
         <title>AJAX Example</title>
     </head>
     <body>
@@ -32,10 +34,17 @@
         
         
     <script>
-        var jsonURL = 'https://data.cityofchicago.org/resource/9rg7-mz9y.json';
+        var jsonURL = 'https://data.cityofchicago.org/resource/tt4n-kn4t.json?department=MAYOR%27S%20OFFICE';
+        
         $.getJSON(jsonURL)
             .done(function (result) {
                 console.log(result)
+                $.each(result, function (i, val) {
+                   
+                   $("body").append("<p>" + val.name + "</p>");
+                    
+                });
+                
             })
             .fail(function () {
                 console.log('failure') 

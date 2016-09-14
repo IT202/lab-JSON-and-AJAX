@@ -6,13 +6,13 @@
         <title>Tip Calculator</title>
         
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         
         <!-- Latest compiled JavaScript -->
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
     </head>
     <body>
@@ -22,27 +22,41 @@
 
         <hr>
         Enter the amount of the check
-        <input type="number" id-"txtCkAmt" min="0.01" step="0.01" max="2500" placeholder="00.00" /><br>
+        <input type="number" id="txtCkAmt" min="0.01" step="0.01" max="2500" placeholder="00.00" /><br>
         Select the tip percentage
         <select id="selTipPct">
- 
+             <option value=".15">15%</option>
+             <option value=".18">18%</option>
+             <option value=".20">20%</option>
         </select>
         <br>
         <button id="btnDoCalc">Calculate Tip Amount</button>
         
+        <p id="pTipAmount"></p>
     </div>
 </div>
 
       <script>
  
         // hook up the event handler on the button
-        
+        $("#btnDoCalc").click( function () {
+          
         // get the input values
-        
+            var checkAmount = $("#txtCkAmt").val();
+            console.log(checkAmount);
+            
+            var tipPercentage = $("#selTipPct").val();
+            console.log(tipPercentage);
+            
         // calculate
-        
+            var tipAmount = (checkAmount * tipPercentage).toFixed(2);
+            console.log(tipAmount);
+            
         // display the results
- 
+            $("#pTipAmount").html("Leave a tip of $" + tipAmount + ".");
+            
+            
+        });
  
      </script>
     </body>
