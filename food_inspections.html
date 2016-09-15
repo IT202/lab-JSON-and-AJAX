@@ -19,7 +19,7 @@
 <div class="container">
   <div class="jumbotron">
         <h1>Food Inspections </h1>
-
+        <p>Returns data on Food Inspections made as a result of complaints</p>
         <hr>
         Enter a zip code
         <input id="txtZip" type="text" placeholder="Enter a Chicago Zip Code" />
@@ -30,10 +30,19 @@
         
         <p id="pFails"></p>
     </div>
+    
+
+  <h2>Food Inspection Results</h2>
+  <div id="panelGroupResults" class="panel-group">
+
+    </div>
 </div>
 
     <script>
+        // base URL with filter on inspection_type;  zip will be appended
         var jsonURL ="https://data.cityofchicago.org/resource/cwig-ma7x.json?inspection_type=Complaint&zip=";
+   
+        var loopHTML, loopStatus;
         // hook up click event handler
         
         $("#btnGetInsp").click(function () {
@@ -42,9 +51,37 @@
             $.getJSON(jsonURL)
                 .done(function (result) {
                     console.log(result)
+                    // create a panel for each one
                     $.each(result, function (i, val) {
+                       // constructing the HTML for a Bootstrap panel
+                       if (val.results === 'Pass') {
+                           loopHTML =
+                        '<div class="panel panel-success">';
+                       }
+                       else if (val.results === 'Fail') {
+                           loopHTML =
+                        '<div class="panel panel-danger">';
+                       }
+                       else  {
+                           loopHTML =
+                        '<div class="panel panel-warning">';
+                       }
                        
-                       $("#pFails").append(val.dba_name + "<br>");
+                       loopHTML +=
+                         '<div class="panel-heading">'
+                        + val.dba_name 
+                        + '</div>'
+                        + '<div class="panel-body">'
+                        + val.results.toUpperCase()
+                        + ", " 
+                        + val.inspection_date
+                        + ", " 
+                        + val.facility_type
+                        + ", "
+                        + '</div>'
+                        +   '</div>';
+                       
+                       $("#panelGroupResults").append(loopHTML);
                         
                     });
                     
